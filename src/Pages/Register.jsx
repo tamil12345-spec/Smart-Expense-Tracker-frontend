@@ -54,12 +54,16 @@ const Register = () => {
         </p>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-medium text-gray-900">
             Email
           </label>
           <input
+            id="email"
             type="email"
             name="email"
+            autoComplete="email"
             value={formData.email}
             onChange={handleChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -69,12 +73,16 @@ const Register = () => {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
+          <label
+            htmlFor="password"
+            className="block mb-2 text-sm font-medium text-gray-900">
             Password
           </label>
           <input
+            id="password"
             type="password"
             name="password"
+            autoComplete="new-password"
             value={formData.password}
             onChange={handleChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -84,12 +92,16 @@ const Register = () => {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
+          <label
+            htmlFor="confirmPassword"
+            className="block mb-2 text-sm font-medium text-gray-900">
             Confirm Password
           </label>
           <input
+            id="confirmPassword"
             type="password"
             name="confirmPassword"
+            autoComplete="new-password"
             value={formData.confirmPassword}
             onChange={handleChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -107,7 +119,9 @@ const Register = () => {
 
         <p className="mt-4 text-sm text-center text-gray-600">
           Already have an account?{" "}
-          <Link to="/login" className="text-sky-700 font-medium hover:underline">
+          <Link
+            to="/login"
+            className="text-sky-700 font-medium hover:underline">
             Login
           </Link>
         </p>
