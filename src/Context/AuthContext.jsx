@@ -4,6 +4,7 @@ import api from "../Services/api";
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -17,38 +18,44 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem("token"));
   const [loading, setLoading] = useState(true);
 
+  // Restore the session from localStorage on first load
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
 
     if (storedToken && storedUser) {
-      setToken(storedToken);
-      setUser(JSON.parse(storedUser));
+      try {
+        setToken(storedToken);
+        setUser(JSON.parse(storedUser));
+      } catch {
+        // Corrupted data in storage: clear it so the app doesn't crash
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        setToken(null);
+        setUser(null);
+      }
     }
     setLoading(false);
   }, []);
 
-  const register = async (email, password) => {
-    const response = await api.post("/auth/register", { email, password });
-    const { token: newToken, user: newUser } = response.data;
-
+  const saveSession = (newToken, newUser) => {
     localStorage.setItem("token", newToken);
     localStorage.setItem("user", JSON.stringify(newUser));
     setToken(newToken);
     setUser(newUser);
+  };
 
+  const register = async (email, password) => {
+    const response = await api.post("/auth/register", { email, password });
+    const { token: newToken, user: newUser } = response.data;
+    saveSession(newToken, newUser);
     return response.data;
   };
 
   const login = async (email, password) => {
     const response = await api.post("/auth/login", { email, password });
     const { token: newToken, user: newUser } = response.data;
-
-    localStorage.setItem("token", newToken);
-    localStorage.setItem("user", JSON.stringify(newUser));
-    setToken(newToken);
-    setUser(newUser);
-
+    saveSession(newToken, newUser);
     return response.data;
   };
 

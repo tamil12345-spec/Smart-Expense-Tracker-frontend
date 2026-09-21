@@ -39,12 +39,16 @@ const Login = () => {
         </p>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-medium text-gray-900">
             Email
           </label>
           <input
+            id="email"
             type="email"
             name="email"
+            autoComplete="email"
             value={formData.email}
             onChange={handleChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -54,12 +58,16 @@ const Login = () => {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">
+          <label
+            htmlFor="password"
+            className="block mb-2 text-sm font-medium text-gray-900">
             Password
           </label>
           <input
+            id="password"
             type="password"
             name="password"
+            autoComplete="current-password"
             value={formData.password}
             onChange={handleChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -77,7 +85,9 @@ const Login = () => {
 
         <p className="mt-4 text-sm text-center text-gray-600">
           Don&apos;t have an account?{" "}
-          <Link to="/register" className="text-sky-700 font-medium hover:underline">
+          <Link
+            to="/register"
+            className="text-sky-700 font-medium hover:underline">
             Register
           </Link>
         </p>
